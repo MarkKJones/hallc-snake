@@ -303,7 +303,8 @@ c		unclip the plot:
      @          ',l(ightning)',
      @          ',e(nvelope)',/,
      @          's(ection)',
-     @          ',b(are plot)',
+     @          ',b(are plot)',/,
+     @          'v(ctor output)','t(rack output)',
      @          ' or q(uit)? (def=p)')
         read(5,'(a)')rep
         if(rep.eq.' ')rep='p'

@@ -3750,6 +3750,7 @@ c   read the field
         	    read(3,form)(((b(i,j,k,1),b(i,j,k,2),b(i,j,k,3)
      @                   ,i=1,ndx),j=1,ndy),k=1,ndz)
        		 endif
+c
 	goto100
 c
 c	read the user plot asuming that it is in relat. coord.,
@@ -4196,6 +4197,9 @@ c mkj2
         f(i) = bfield_int(i)
         enddo
         endif
+c uncomment to write for beamline test
+c        write(71,'(3(f12.5,1x),3(g15.5,1x))') 
+c     >x,y,z,f(1)*fact(indre),f(2)*fact(indre),f(3)*fact(indre)
 c
         if ( 1 .eq. -1) then
 c         find the cube:

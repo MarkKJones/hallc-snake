@@ -1067,7 +1067,7 @@ c               assume azr1r=axr2r=0. and azr1r and azr2r negligable:
                  dlr=tl2r-tl1r
                  dl=-(dl-dlr)/10.
 c  temporary end
-523           write(4,'(10e14.6)')xr1,axr1,zr1,azr1
+             write(4,'(10e14.6)')xr1,axr1,zr1,azr1
      s			         ,xr2,axr2,zr2,azr2
      s		                 ,dl,psq
 521     continue
@@ -1382,6 +1382,8 @@ c
         endif
 c
        if (ltarget .and. .not. lrand) then
+                 thspec=ymin
+                 write(*,*) ' thspec = ',thspec,' deg'
            ixmax=(xmax-xmin)/xstep+1.5
            iymax=1
            izmax=(zmax-zmin)/zstep+1.5
@@ -1667,6 +1669,7 @@ c                previous line : end of the /fidef/ package
      @             ,(zp,q(6))
       data qdiag/'x','y','z','r','t','z'/
       dimension xyz(3),pm(5,3)
+         dimension bfield(3)
 c                data for rungk:
 c       end-plane orthogonal to axis y (1:x,2:y,3:z):
         idir=kep

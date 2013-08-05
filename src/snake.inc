@@ -11,9 +11,9 @@
         parameter (nulumax=100)
 	parameter (nuseumax=100)
         parameter (maxq=35)
-        parameter (maxx=183)
-        parameter (maxy=302)
-        parameter (maxz=100)
+        parameter (maxx=451)
+        parameter (maxy=451)
+        parameter (maxz=451)
 c	include 'snake-incl.f' version snake900 
         real sind, cosd, tand
         real asind, acosd, atand, atan2d

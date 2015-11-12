@@ -1,0 +1,94 @@
+Notes on Snake code
+------------------
+src subdirectory has the snake code.
+Makefile is hardwired to get the cernlib from JLab CUE system computers
+obj subdirectory is used to store object files
+
+Need to modify the Makeifle to get the correct CERNLIB
+then do "make" and excutable "snake" is created.
+
+The subdirectory hrs-examples is for the Hall A HRS spectrometer.
+
+In general snake needs a file that described the magnetic system. Usually
+one has a trajectory file which sets up the input particle trajectories to go through
+the magnetic system. One can also do it interactively.
+
+There is a manual for snake that explains the input files.
+One change that I made to the trajectory file is that if one selects a random
+distribution then the 
+See example below
+
+Example of running code
+----------------------
+assume that you are running in hrs-examples
+
+define symbolic links for the snake default input file names
+ln -s inputfiles/comm_8_dir.dat DIR.DAT
+ln -s trajfiles/ran_traj_15cm_20deg.dat TRAJ.DAT
+../snake
+$ directive-file name??(def=DIR.DAT                                 )
+<hit return>
+
+snake will print out each of the HRS magnetic region names
+
+$ data from t(erminal) or d(isk) (def.=t):
+d      
+( "d" will read from the disk)
+
+$ trajectory-file name?(def=TRAJ.DAT            )
+<hit return>
+snake prints out information about the input trajectories
+Then it prints out how trajectories pass through each region
+
+p(lot),d(isplay),o(utput for mudifi),u(ser defined output)
+,r(aytrace style output),n(ew problem),
+ m(ove the plot),c(lip the plot),l(ightning),e(nvelope)
+s(ection),b(are plot)
+v(ctor output)t(rack output) or q(uit)? (def=p)
+
+there is a lot of options (most use the CERNLIB to make plots 
+and I avoid those).
+I mainly just use.
+
+v(ctor output)
+This crates a file fort.31 which has the vector information for the track
+at every endplane to track the particle through the magnets even if the track
+does not make it to the final endplane.
+I wrote a root script macros/make_snake_ntuple.C to convert the fort.31 to a
+root file. Need to edit C file to set the root file name 
+Then I wrote a root script macros/make_hrs_hist.C which reads the root
+  file and plots various plots. The code can also fit matrix elements.
+  It makes plots of the X vs Y positions at each endplane defined in the
+  input file.
+  
+
+
+
+
+hrs-examples Subdirectories
+--------------
+inputfiles :  has the SNAKE inputfiles
+   comm_8_dir.dat : original HRS inputfile from John LeRose central momentum=0.837595 GeV/c
+   comm_8.dat     : needed to define dipole in comm_8_dir.dat and comm_hrs_mod10.dat
+   comm_hrs_mod10.dat :  original HRS inputfile with Q1 field reduced by 20%
+                        at Q1entrance, Q1exit and Q1Q2 regions.
+
+trajfiles : has the SNAKE trajectory files 
+  
+  ran_traj_15cm_20deg.dat : file which does 40,000 trajectories 
+r           random tracks
+40000       number of events
+             empty line needed
+-.0,.0,1.      initial x position
+20.,0.,1.      since random is chose the first number is the spectrometer angle 20 degrees
+-75.,75., 40.     random target z=+/-75mm position along the beam the step size=40. is ignored 
+-0.1, 0.1, 0.005   random theta x (vertical angle) =+/-0.1 the step size is  ignored
+-0.05, 00.05, .005  random theta z (horizontal angle) =+/-0.05 the step size is  ignore
+.77, .905, 0.05   random momentum between .77 to .905 GeV/c 
+0.,0.,1.  spin x
+0.,0.,1.  spin y
+0.,0.,1.  spin z
+y         insert reference trajectory ( central ray)
+
+
+

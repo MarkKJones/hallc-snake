@@ -8,9 +8,9 @@ SRCDIR := src
 INCDIR := src
 OBJDIR := obj
 #####################################################
-FF = f77
-LD = f77
-FFLAGS = -O2 -g -m32 -fno-automatic 
+FF = gfortran
+LD = gfortran
+FFLAGS = -O2 -ff2c -g -fno-automatic 
 
 ################################ Libraries
 ifndef SYSLIBS
@@ -23,7 +23,7 @@ ifeq ($(MYOS),SunOS)
 endif
   
 #this program used 2001 cernlib /apps/cernlib/sun4_solaris8/2001 in jlabs2,
-CERN_ROOT := /apps/cernlib/i386_rhel3/2003
+CERN_ROOT := /apps/cernlib/x86_64_rhel7/2005
 
 CERNLIBS := -L$(CERN_ROOT)/lib -lpdflib804 -lmathlib -lphtools \
  -lgeant321 -lpawlib -lgraflib -lgrafX11 -lpacklib -lkernlib 

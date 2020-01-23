@@ -1365,7 +1365,7 @@ c
                  ispxmax=1
                  ispymax=1
                  ispzmax=1
-                 write(*,*) ' thspec = ',thspec,' deg'
+                 write(*,*) ' rand and ltarget thspec = ',thspec,' deg'
 c
 c   else compute the loop parameter :
 c
@@ -1383,7 +1383,7 @@ c
 c
        if (ltarget .and. .not. lrand) then
                  thspec=ymin
-                 write(*,*) ' thspec = ',thspec,' deg'
+                 write(*,*) 'not rand  thspec = ',thspec,' deg'
            ixmax=(xmax-xmin)/xstep+1.5
            iymax=1
            izmax=(zmax-zmin)/zstep+1.5
@@ -4923,7 +4923,7 @@ c calculate fields
       subroutine fb01ad(c,  vk,ve)
       implicit real*8(a-h,o-z)
 c*ibm real*8 xlg/  z7fffffffffffffff /
-      real * 8 xlg/'7fffffffffffffff'x/
+c      real*8 xlg/'7fffffffffffffff'x/
       d=1d0-c
       if(d .gt. 0d0)e=-log(d)
 c**** harwell version of fb01ad
@@ -4960,7 +4960,8 @@ c****
      l    +1.38629436111989062d0
       return
     2 ve=1d0
-      vk=xlg
+c      vk=xlg
+      write(*,*) ' had to use xlg warning ******'
       return
       end
       subroutine dfringe(x,y,z,fact,a,fx,fy,fz)

@@ -1060,6 +1060,7 @@ c                previous line : end of the /plot/ package
         character formh*15,formv*15
         real a
       common/ctext/formh,formv
+      integer hldep,bh,vldep,bv,iexph,iexpv,ith,itv
       common/text/hldep,bh,vldep,bv,iexph,iexpv,ith,itv
       common/ntw/xmax1,xmin1,ymax1,ymin1,xnmin,xnmax,ynmin,ynmax
       external scale
@@ -1623,6 +1624,7 @@ c                next line : begening of the /plot/ package
 c                previous line : end of the /plot/ package
       character formh*15,formv*15,string*20
       common/ctext/formh,formv
+      integer hldep,bh,vldep,bv,iexph,iexpv,ith,itv
       common/text/hldep,bh,vldep,bv,iexph,iexpv,ith,itv
       common/ntw/xmax1,xmin1,ymax1,ymin1,xnmin,xnmax,ynmin,ynmax
       call ischh(1./120.)
@@ -1867,6 +1869,7 @@ c          form:most economical write format
 c          it:number of chatacter(s) in form
 c          iexp:value of the decimal exponent (if any)
 c
+      integer fnsr
       character form*15,formm*8,forme*7,formf*17
        b1=ba
        b2=bb
@@ -3680,6 +3683,7 @@ c index 6: same initialization as index 5:
  806     read(3,*)ndx,xmin,xmax
         if(ndx.gt.maxx)stop'ifield:max. field points in x surpassed'
         xstep=(xmax-xmin)/real(ndx-1)
+         write(*,*) " ndx = ",ndx,xmin,xmax,xstep
         if(indfi(indre).eq.5)then
         	q1=xmin+xstep
         else
@@ -3694,6 +3698,7 @@ c index 6: same initialization as index 5:
         if((l.and.(f1.lt.q1.or.f2.gt.q2)).or.(.not.l.and.
      @     (a1.lt.q1.or.a2.gt.q2.or.a1.gt.q2.or.a2.lt.q1)))
      @     write(6,*)' warning : field < free-box in x'
+     >,f1,q1,f2,q2,a1,a2
         read(3,*)ndy,ymin,ymax
         if(ndy.gt.maxy)stop'ifield:max. field points in y surpassed'
 c 		if cylindrical , convert degree to radian :
@@ -3702,6 +3707,7 @@ c 		if cylindrical , convert degree to radian :
 		ymax=ymax*dtor
       endif
         ystep=(ymax-ymin)/real(ndy-1)
+         write(*,*) " ndy = ",ndy,ymin,ymax,ystep
         if(indfi(indre).eq.5)then
         	q1=ymin+ystep
         else
@@ -3716,9 +3722,11 @@ c 		if cylindrical , convert degree to radian :
         if((l.and.(f1.lt.q1.or.f2.gt.q2)).or.(.not.l.and.
      @     (a1.lt.q1.or.a2.gt.q2.or.a1.gt.q2.or.a2.lt.q1)))
      @     write(6,*)' warning : field < free-box in y'
+     >,f1,q1,f2,q2,a1,a2
         read(3,*)ndz,zmin,zmax
         if(ndz.gt.maxz)stop'ifield:max. field points in z surpassed'
         zstep=(zmax-zmin)/real(ndz-1)
+         write(*,*) " ndz = ",ndz,zmin,zmax,zstep
         if(indfi(indre).eq.5)then
         	q1=zmin+zstep
         else
@@ -3733,6 +3741,7 @@ c 		if cylindrical , convert degree to radian :
         if((l.and.(f1.lt.q1.or.f2.gt.q2)).or.(.not.l.and.
      @     (a1.lt.q1.or.a2.gt.q2.or.a1.gt.q2.or.a2.lt.q1)))
      @     write(6,*)' warning : field < free-box in z'
+     >,f1,q1,f2,q2,a1,a2
 c   read the format:
        		 read(3,'(a)')form
         if(.not.lmap)then
@@ -4174,7 +4183,7 @@ c mkj2
         xdiff=(x-xsmall)/xstep
         ydiff=(y-ysmall)/ystep
         zdiff=(z-zsmall)/zstep
-       if ( ixsmall+1 .gt. ndx .or.
+        if ( ixsmall+1 .gt. ndx .or.
      > iysmall+1 .gt. ndy .or.
      > izsmall+1 .gt. ndz .or.
      > ixsmall .lt. 1 .or.
@@ -4198,8 +4207,9 @@ c mkj2
         enddo
         endif
 c uncomment to write for beamline test
-c        write(71,'(3(f12.5,1x),3(g15.5,1x))') 
-c     >x,y,z,f(1)*fact(indre),f(2)*fact(indre),f(3)*fact(indre)
+        write(71,'(i5,f12.5,1x,3(f12.5,1x),3(g15.5,1x))') 
+     >indre,ver(indve,7)
+     >,x,y,z,f(1)*fact(indre),f(2)*fact(indre),f(3)*fact(indre)
 c
         if ( 1 .eq. -1) then
 c         find the cube:

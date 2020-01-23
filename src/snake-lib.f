@@ -4207,9 +4207,9 @@ c mkj2
         enddo
         endif
 c uncomment to write for beamline test
-        write(71,'(i5,f12.5,1x,3(f12.5,1x),3(g15.5,1x))') 
-     >indre,ver(indve,7)
-     >,x,y,z,f(1)*fact(indre),f(2)*fact(indre),f(3)*fact(indre)
+c        write(71,'(i5,f12.5,1x,3(f12.5,1x),3(g15.5,1x))') 
+c     >indre,ver(indve,7)
+c     >,x,y,z,f(1)*fact(indre),f(2)*fact(indre),f(3)*fact(indre)
 c
         if ( 1 .eq. -1) then
 c         find the cube:
